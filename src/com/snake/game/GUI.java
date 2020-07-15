@@ -19,7 +19,7 @@ public class GUI {
     private int x, y;
     private String movedir;
     private int areaSize = 34;
-    private int TIMER = 30;
+    private int TIMER = 50;
     private boolean mvlock;
     private boolean autopilot;
     private final Color bgColor = Color.BLACK;
@@ -52,7 +52,7 @@ public class GUI {
             }
         }
         frame.setSize(getFrameSize(), getFrameSize());
-        frame.setResizable(false);
+//        frame.setResizable(false);
         this.game.resetAll();
     }
 
@@ -163,15 +163,15 @@ public class GUI {
     }
 
     public void endAnimation() {                   //lopetusefekti
-        for (int a = 0; a < game.getLenght() - 1; a++) {
+        for (int a = 0; a < game.getLength() - 1; a++) {
             screen[game.getX(a)][game.getY(a)].setForeground(Color.BLACK);
         }
         waitInterval(80);
-        for (int a = 0; a < game.getLenght() - 1; a++) {
+        for (int a = 0; a < game.getLength() - 1; a++) {
             screen[game.getX(a)][game.getY(a)].setForeground(snColor);
         }
         waitInterval(40);
-        for (int a = 0; a < game.getLenght() - 1; a++) {
+        for (int a = 0; a < game.getLength() - 1; a++) {
             screen[game.getX(a)][game.getY(a)].setForeground(Color.DARK_GRAY);
         }
         waitInterval(500);

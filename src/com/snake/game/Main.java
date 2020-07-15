@@ -1,10 +1,16 @@
 package com.snake.game;
 
+/**
+ *
+ * @author antti
+ */
 public class Main {
 
-    public static void main(String[] args) {
-        GUI gui = new GUI();
-        gui.init(34);
+    static int areaSize = 34;
+    static Game game = null;
 
+    public static void main(String[] args) {
+        game = new Game();
+        game.init(areaSize);
     }
 }
