@@ -5,35 +5,39 @@ import java.util.stream.Collectors;
 
 public class DijkstraAdopted {
 
-    private static class NodeComparator implements Comparator<DijkstraAdopted.Node> {
-        public int compare(DijkstraAdopted.Node n1, DijkstraAdopted.Node n2) {
-            if (n1.value > n2.value)
-                return 1;
-            else if (n1.value < n2.value)
-                return -1;
-            return 0;
+    private static class PriorityNode implements Comparable<PriorityNode> {
+        private final Node node;
+        private final int priority;
+
+        public PriorityNode(Node node, int priority) {
+            this.node = node;
+            this.priority = priority;
+        }
+
+        public int compareTo(PriorityNode p) {
+            return Integer.compare(this.priority, p.priority);
+        }
+
+        public Node getNode() {
+            return node;
         }
     }
 
     private static class Node {
-        public int x;
-        public int y;
-        public int value;
+        private final int x;
+        private final int y;
 
         public Node(int x, int y) {
             this.x = x;
             this.y = y;
         }
 
-        public Node(int x, int y, int value) {
-            this.x = x;
-            this.y = y;
-            this.value = value;
+        public int getX() {
+            return x;
         }
 
-        public Node setValue(int value) {
-            this.value = value;
-            return this;
+        public int getY() {
+            return y;
         }
 
         @Override
@@ -50,21 +54,12 @@ public class DijkstraAdopted {
             return Objects.hash(x, y);
         }
 
-        @Override
-        public String toString() {
-            return "Node{" +
-                    "x=" + x +
-                    ", y=" + y +
-                    ", value=" + value +
-                    '}';
-        }
     }
 
     private static class SquareGrid {
-
-        private int width;
-        private int height;
-        private Map<Node, Integer> weights = new HashMap<>();
+        private final int width;
+        private final int height;
+        private final Map<Node, Integer> weights = new HashMap<>();
 
         public SquareGrid(int width, int height) {
             this.width = width;
@@ -73,6 +68,14 @@ public class DijkstraAdopted {
 
         public void addWeight(Node node, int weight) {
             weights.put(node, weight);
+        }
+
+        public int getWidth() {
+            return width;
+        }
+
+        public int getHeight() {
+            return height;
         }
 
         private boolean inBounds(int x, int y) {
@@ -98,13 +101,11 @@ public class DijkstraAdopted {
         }
     }
 
-    public boolean search(SquareGrid grid, Node start, Node goal) {
-        Queue<Node> frontier = new
-                PriorityQueue<>(
-                grid.height*grid.width,
-                new NodeComparator()
-        );
-        frontier.add(start.setValue(0));
+    public Map<Node, Node> search(SquareGrid grid, Node start, Node goal) {
+
+        Queue<PriorityNode> frontier = new PriorityQueue<>();
+
+        frontier.add(new PriorityNode(start, 0));
 
         Map<Node, Integer> A = new HashMap<>(); // cost so far
         Map<Node, Node> B = new HashMap<>(); // came from
@@ -116,25 +117,62 @@ public class DijkstraAdopted {
         B.put(start, null);
 
         while (!frontier.isEmpty()) {
-            Node current = frontier.poll();
+            PriorityNode currentPriorityNode = frontier.poll();
+            Node current = currentPriorityNode.getNode();
 
             if (current.equals(goal)) {
                 break;
             }
 
-            for (Node next: grid.neighbors(current.x, current.y)) {
+            for (Node next: grid.neighbors(current.getX(), current.getY())) {
                 int newCost = A.get(current) + grid.cost(current, next);
                 if (!A.containsKey(next) || newCost < A.get(next)) {
                     A.put(next, newCost);
-                    frontier.add(next.setValue(newCost));
+                    frontier.add(new PriorityNode(next, newCost));
                     B.put(next, current);
                 }
             }
 
         }
-        System.out.println(A);
+        return B;
+    }
 
-        return true;
+    private String drawTile(SquareGrid grid, Node node, Node start, Node goal, List<Node> path) {
+        String tile = ".";
+
+        if (node.equals(start)) {
+            tile = "A";
+        }
+        if (node.equals(goal)) {
+            tile = "Z";
+        }
+        if (path.contains(node)) {
+            tile = "@";
+        }
+        return tile;
+    }
+
+    public void drawGrid(SquareGrid grid, List<Node> path, Node start, Node goal) {
+        for (int y = 0; y < grid.getHeight() ; y++) {
+            for (int x = 0; x < grid.getWidth() ; x++) {
+                System.out.printf("%-3s", drawTile(grid, new Node(x, y), start, goal, path));
+            }
+            System.out.println("");
+        }
+    }
+
+    public List<Node> reconstructPath(Map<Node, Node> B, Node start, Node goal) {
+        Node current = goal;
+        List<Node> path = new ArrayList<>();
+
+        while (!current.equals(start)) {
+            path.add(current);
+            current = B.get(current);
+        }
+        path.add(start);
+        Collections.reverse(path);
+
+        return path;
     }
 
     public static void main(String[] args) {
@@ -168,8 +206,15 @@ public class DijkstraAdopted {
         grid.addWeight(new Node(7,4), 5);
         grid.addWeight(new Node(7,5), 5);
 
-        boolean res = dijkstra.search(
+        Map<Node, Node> B = dijkstra.search(
                 grid,
+                new Node(1,4),
+                new Node(7,8)
+        );
+
+        dijkstra.drawGrid(
+                grid,
+                dijkstra.reconstructPath(B, new Node(1,4), new Node(7,8)),
                 new Node(1,4),
                 new Node(7,8)
         );
