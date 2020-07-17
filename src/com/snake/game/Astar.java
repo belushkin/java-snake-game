@@ -3,7 +3,7 @@ package com.snake.game;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class DijkstraAdopted {
+public class Astar {
 
     private static class PriorityNode implements Comparable<PriorityNode> {
         private final Node node;
@@ -101,6 +101,10 @@ public class DijkstraAdopted {
         }
     }
 
+    private int heuristic(Node a, Node b) {
+        return Math.abs(a.getX() - b.getX()) + Math.abs(a.getY() - b.getY());
+    }
+
     public Map<Node, Node> search(SquareGrid grid, Node start, Node goal) {
 
         Queue<PriorityNode> frontier = new PriorityQueue<>();
@@ -128,7 +132,8 @@ public class DijkstraAdopted {
                 int newCost = A.get(current) + grid.cost(current, next);
                 if (!A.containsKey(next) || newCost < A.get(next)) {
                     A.put(next, newCost);
-                    frontier.add(new PriorityNode(next, newCost));
+                    int priority = newCost + heuristic(goal, next);
+                    frontier.add(new PriorityNode(next, priority));
                     B.put(next, current);
                 }
             }
@@ -176,7 +181,7 @@ public class DijkstraAdopted {
     }
 
     public static void main(String[] args) {
-        DijkstraAdopted dijkstra = new DijkstraAdopted();
+        Astar dijkstra = new Astar();
         SquareGrid grid = new SquareGrid(10, 10);
         grid.addWeight(new Node(3,4), 5);
         grid.addWeight(new Node(3,5), 5);
