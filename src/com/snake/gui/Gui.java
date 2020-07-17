@@ -1,4 +1,6 @@
-package com.snake.game;
+package com.snake.gui;
+
+import com.snake.Game;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,35 +12,44 @@ import javax.swing.*;
  *
  * @author antti
  */
-public class GUI {
+public class Gui {
 
     Game game;
-    private JFrame frame;
+//    private JFrame frame;
     private JLabel[][] screen;
     private JPanel gamepanel;
+
     private int x, y;
     private String movedir;
     private int areaSize = 34;
     private int TIMER = 50;
     private boolean mvlock;
     private boolean autopilot;
-    private final Color bgColor = Color.BLACK;
-    private final Color snColor = Color.CYAN;
-    private final Color foodColor = Color.MAGENTA;
 
-    public void init(int areaSize, Game game) {
-        this.areaSize = areaSize;
+//    private final Color bgColor = Color.BLACK;
+//    private final Color snColor = Color.CYAN;
+//    private final Color foodColor = Color.MAGENTA;
+
+    public Gui(JPanel gamepanel, Game game) {
+        this.gamepanel = gamepanel;
         this.game = game;
+    }
 
-        frame = new JFrame();
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gamepanel = new JPanel(new GridLayout(areaSize, areaSize));
+    public void init(int areaSize) {
+        this.areaSize = areaSize;
+//        this.game = game;
+
+//        frame = new JFrame();
+//        frame.setVisible(true);
+//        frame.setLocationRelativeTo(null);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+//        gamepanel = new JPanel(new GridLayout(areaSize, areaSize));
         gamepanel.setBackground(bgColor);
         frame.setContentPane(gamepanel);
+
         screen = new JLabel[areaSize][areaSize];
-        inputKeys();
+//        inputKeys();
         this.x = 0;
         this.y = 0;
         while (y < areaSize - 1) {
@@ -99,57 +110,57 @@ public class GUI {
         movedir = "";
     }
 
-    public void moveUp() {               //liikkumisfunktiot
-        //movedir="UP";
-        if (this.y != 0) {
-            this.y--;
-        } else {
-            this.y = areaSize - 2;
-        }
-        waitInterval(TIMER);
-        updatePosition();
-        game.setCoord(x, y);
-        mvlock = false;
-    }
-
-    public void moveDown() {
-        //movedir="DOWN";
-        if (this.y != areaSize - 2) {
-            this.y++;
-        } else {
-            this.y = 0;
-        }
-        waitInterval(TIMER);
-        updatePosition();
-        game.setCoord(x, y);
-        mvlock = false;
-    }
-
-    public void moveLeft() {
-        //movedir="LEFT";
-        if (this.x != 0) {
-            this.x--;
-        } else {
-            this.x = areaSize - 2;
-        }
-        waitInterval(TIMER);
-        updatePosition();
-        game.setCoord(x, y);
-        mvlock = false;
-    }
-
-    public void moveRight() {
-        //movedir="RIGHT";
-        if (this.x != areaSize - 2) {
-            this.x++;
-        } else {
-            this.x = 0;
-        }
-        waitInterval(TIMER);
-        updatePosition();
-        game.setCoord(x, y);
-        mvlock = false;
-    }
+//    public void moveUp() {               //liikkumisfunktiot
+//        //movedir="UP";
+//        if (this.y != 0) {
+//            this.y--;
+//        } else {
+//            this.y = areaSize - 2;
+//        }
+//        waitInterval(TIMER);
+//        updatePosition();
+//        game.setCoord(x, y);
+//        mvlock = false;
+//    }
+//
+//    public void moveDown() {
+//        //movedir="DOWN";
+//        if (this.y != areaSize - 2) {
+//            this.y++;
+//        } else {
+//            this.y = 0;
+//        }
+//        waitInterval(TIMER);
+//        updatePosition();
+//        game.setCoord(x, y);
+//        mvlock = false;
+//    }
+//
+//    public void moveLeft() {
+//        //movedir="LEFT";
+//        if (this.x != 0) {
+//            this.x--;
+//        } else {
+//            this.x = areaSize - 2;
+//        }
+//        waitInterval(TIMER);
+//        updatePosition();
+//        game.setCoord(x, y);
+//        mvlock = false;
+//    }
+//
+//    public void moveRight() {
+//        //movedir="RIGHT";
+//        if (this.x != areaSize - 2) {
+//            this.x++;
+//        } else {
+//            this.x = 0;
+//        }
+//        waitInterval(TIMER);
+//        updatePosition();
+//        game.setCoord(x, y);
+//        mvlock = false;
+//    }
 
     public void updatePosition() {                 //madon pään kohdalle vaihdetaan JLabelin väri ja hännän pää muutetaan taustan väriseksi
         screen[game.getX(0)][game.getY(0)].setForeground(bgColor);
@@ -210,70 +221,70 @@ public class GUI {
         }
     }
 
-    public void inputKeys() {
-        gamepanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "UP");
-        gamepanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "LEFT");
-        gamepanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "DOWN");
-        gamepanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "RIGHT");
-        gamepanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0), "AUTO");
-
-        gamepanel.getActionMap().put("UP", new AbstractAction() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if (!movedir.equals("DOWN")) {
-                    if (!mvlock) {
-                        movedir = "UP";
-                        mvlock = true;
-                    }
-                }
-            }
-        });
-        gamepanel.getActionMap().put("LEFT", new AbstractAction() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if (!movedir.equals("RIGHT")) {
-                    if (!mvlock) {
-                        movedir = "LEFT";
-                        mvlock = true;
-                    }
-                }
-            }
-        });
-        gamepanel.getActionMap().put("DOWN", new AbstractAction() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if (!movedir.equals("UP")) {
-                    if (!mvlock) {
-                        movedir = "DOWN";
-                        mvlock = true;
-                    }
-                }
-            }
-        });
-        gamepanel.getActionMap().put("RIGHT", new AbstractAction() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if (!movedir.equals("LEFT")) {
-                    if (!mvlock) {
-                        movedir = "RIGHT";
-                        mvlock = true;
-                    }
-                }
-            }
-        });
-
-        gamepanel.getActionMap().put("AUTO", new AbstractAction() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                pilotToggle();
-            }
-        });
-    }
+//    public void inputKeys() {
+//        gamepanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "UP");
+//        gamepanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "LEFT");
+//        gamepanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "DOWN");
+//        gamepanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "RIGHT");
+//        gamepanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0), "AUTO");
+//
+//        gamepanel.getActionMap().put("UP", new AbstractAction() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {
+//                if (!movedir.equals("DOWN")) {
+//                    if (!mvlock) {
+//                        movedir = "UP";
+//                        mvlock = true;
+//                    }
+//                }
+//            }
+//        });
+//        gamepanel.getActionMap().put("LEFT", new AbstractAction() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {
+//                if (!movedir.equals("RIGHT")) {
+//                    if (!mvlock) {
+//                        movedir = "LEFT";
+//                        mvlock = true;
+//                    }
+//                }
+//            }
+//        });
+//        gamepanel.getActionMap().put("DOWN", new AbstractAction() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {
+//                if (!movedir.equals("UP")) {
+//                    if (!mvlock) {
+//                        movedir = "DOWN";
+//                        mvlock = true;
+//                    }
+//                }
+//            }
+//        });
+//        gamepanel.getActionMap().put("RIGHT", new AbstractAction() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {
+//                if (!movedir.equals("LEFT")) {
+//                    if (!mvlock) {
+//                        movedir = "RIGHT";
+//                        mvlock = true;
+//                    }
+//                }
+//            }
+//        });
+//
+//        gamepanel.getActionMap().put("AUTO", new AbstractAction() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {
+//                pilotToggle();
+//            }
+//        });
+//    }
 
     public void setScore() {                 //pisteen asetus ikkunan titleen
         frame.setTitle("Score: " + game.getScore());

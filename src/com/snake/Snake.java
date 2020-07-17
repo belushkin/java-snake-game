@@ -1,4 +1,4 @@
-package com.snake.game;
+package com.snake;
 
 /**
  * Madon sijaintitaulukot sekä ruuan sijainti ja pistelasku

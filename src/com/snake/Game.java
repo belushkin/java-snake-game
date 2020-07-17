@@ -1,5 +1,10 @@
-package com.snake.game;
+package com.snake;
 
+import com.snake.gui.Panel;
+import com.snake.gui.Gui;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 
 /**
@@ -10,15 +15,24 @@ import java.io.*;
 public class Game {
 
     private Snake snake;
-    private GUI gui;
+    private Gui gui;
 //    private Pathfinder pathfinder;
 
     public void init(int areaSize) {
         snake = new Snake();
-        gui = new GUI();
-//        pathfinder = new Pathfinder(this, gui);
+        Panel panel = new Panel(
+                new JPanel(new GridLayout(areaSize, areaSize))
+        );
 
-        gui.init(areaSize, this);
+        gui = new Gui(
+                panel.getjPanel(),
+                this
+        );
+
+
+        //        pathfinder = new Pathfinder(this, gui);
+
+        gui.init(areaSize);
     }
 
     public void setCoord(int x, int y) { //asetetaan uusi koordinaatti guihin ja pelin sisäiseen logiikkaan
