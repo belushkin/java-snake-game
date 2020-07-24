@@ -49,7 +49,7 @@ public class Game {
 
     public void setSnakeCoordinates(int x, int y) {
         snake.setNewCoordinates(x, y);
-//        checkCollision();
+        checkCollision();
         checkFood(x, y);
 //        if (gui.isAutopilot()) {
 //            if (!pathfinder.isPathFound()) {
@@ -62,13 +62,11 @@ public class Game {
     }
 
     private void checkCollision() {
-        int snakeHeadX = snake.getX(snake.getLength());
-        int snakeHeadY = snake.getY(snake.getLength());
-
-        for (int i = 0; i < (snake.getLength() - 3); i++) {
-            if (snakeHeadX == snake.getX(i) && snakeHeadY == snake.getY(i)) {
-//                gui.endAnimation();
+        for (int i = 0; i < (snake.getLength() - 1); i++) {
+            if (snake.getHeadX() == snake.getX(i) && snake.getHeadY() == snake.getY(i)) {
+                getPanel().endAnimation(snake);
                 resetGame();
+                spawnFood();
                 break;
             }
         }
@@ -77,7 +75,7 @@ public class Game {
     private void checkFood(int x, int y) {
         if (food.getX() == x && food.getY() == y) {
             snake.growLength();
-//            gui.blink();
+            getPanel().blink(snake);
             spawnFood();
         }
     }
@@ -86,7 +84,7 @@ public class Game {
         x = getAreaSize() / 2;
         y = getAreaSize() / 2;
         snake = new Snake();
-//        gui.resetGUI();
+        getPanel().resetPanel();
     }
 
     public void spawnFood() {

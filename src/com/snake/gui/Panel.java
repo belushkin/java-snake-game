@@ -3,6 +3,7 @@ package com.snake.gui;
 import com.snake.Food;
 import com.snake.Game;
 import com.snake.Snake;
+import com.snake.util.Timer;
 
 import javax.swing.*;
 
@@ -17,7 +18,7 @@ public class Panel {
         this.game = game;
 
         this.jPanel.setBackground(Colors.BG_COLOR.getColor());
-        resetPanel();
+        initPanel();
     }
 
     public JPanel getjPanel() {
@@ -32,25 +33,34 @@ public class Panel {
                 setForeground(Colors.BG_COLOR.getColor());
     }
 
-    public void blink() {
-//        jLabel[game.getHeadX()][game.getHeadY()].setForeground(Colors.FOOD_COLOR.getColor());
-//        Timer.waitInterval(TIMER);
-//        jLabel[game.getHeadX()][game.getHeadY()].setForeground(Colors.SNAKE_COLOR.getColor());
+    public void blink(Snake snake) {
+        jLabel[snake.getHeadY()][snake.getHeadX()].
+                setForeground(Colors.FOOD_COLOR.getColor());
+
+        Timer.waitInterval(Game.TIMER);
+
+        jLabel[snake.getHeadY()][snake.getHeadX()].
+                setForeground(Colors.SNAKE_COLOR.getColor());
     }
 
-    public void endAnimation() {
-//        for (int a = 0; a < game.getLength() - 1; a++) {
-//            jLabel[game.getX(a)][game.getY(a)].setForeground(Colors.BG_COLOR.getColor());
-//        }
-//        Timer.waitInterval(80);
-//        for (int a = 0; a < game.getLength() - 1; a++) {
-//            jLabel[game.getX(a)][game.getY(a)].setForeground(Colors.SNAKE_COLOR.getColor());
-//        }
-//        Timer.waitInterval(40);
-//        for (int a = 0; a < game.getLength() - 1; a++) {
-//            jLabel[game.getX(a)][game.getY(a)].setForeground(Colors.GRAY_COLOR.getColor());
-//        }
-//        Timer.waitInterval(500);
+    public void endAnimation(Snake snake) {
+        for (int i = 0; i < snake.getLength() - 1; i++) {
+            jLabel[snake.getY(i)][snake.getX(i)].
+                    setForeground(Colors.BG_COLOR.getColor());
+        }
+
+        Timer.waitInterval(80);
+        for (int i = 0; i < snake.getLength() - 1; i++) {
+            jLabel[snake.getY(i)][snake.getX(i)].
+                    setForeground(Colors.SNAKE_COLOR.getColor());
+        }
+
+        Timer.waitInterval(40);
+        for (int i = 0; i < snake.getLength() - 1; i++) {
+            jLabel[snake.getY(i)][snake.getX(i)].
+                    setForeground(Colors.GRAY_COLOR.getColor());
+        }
+        Timer.waitInterval(500);
     }
 
     public void displayFood(Food food) {
@@ -58,25 +68,7 @@ public class Panel {
                 setForeground(Colors.FOOD_COLOR.getColor());
     }
 
-//    public void reset(boolean force) {
-//        int x = 0;
-//        int y = 0;
-//        while (y < game.getAreaSize() - 1) {
-//            if (force) {
-//                jLabel[x][y] = new JLabel();
-//                jLabel[x][y].setText("■");
-//                jPanel.add(jLabel[x][y]);
-//            }
-//            jLabel[x][y].setForeground(Colors.BG_COLOR.getColor());
-//            x++;
-//            if (x == game.getAreaSize() - 1 && y < game.getAreaSize() - 1) {
-//                x = 0;
-//                y++;
-//            }
-//        }
-//    }
-
-    public void resetPanel() {
+    public void initPanel() {
         for (int i = 0; i < game.getAreaSize(); i++) {
             for (int j = 0; j < game.getAreaSize(); j++) {
                 jLabel[i][j] = new JLabel();
@@ -84,6 +76,14 @@ public class Panel {
                 jLabel[i][j].setForeground(Colors.BG_COLOR.getColor());
 
                 jPanel.add(jLabel[i][j]);
+            }
+        }
+    }
+
+    public void resetPanel() {
+        for (int i = 0; i < game.getAreaSize(); i++) {
+            for (int j = 0; j < game.getAreaSize(); j++) {
+                jLabel[i][j].setForeground(Colors.BG_COLOR.getColor());
             }
         }
     }

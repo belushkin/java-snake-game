@@ -30,14 +30,6 @@ public class Snake {
 
         y.add(y.get(y.size()-1));
         y.add(y.get(y.size()-1));
-
-
-//        length += 2;
-//        while (i < length) {
-//            x[i + 1] = x[i];
-//            y[i + 1] = y[i];
-//            i++;
-//        }
     }
 
     public int getLength() {
