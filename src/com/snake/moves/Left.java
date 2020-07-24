@@ -13,9 +13,8 @@ public class Left implements Movable {
         }
 
         Timer.waitInterval(Game.TIMER);
-        game.setCoord(game.getX(), game.getY());
-        game.getPanel().moveSnake(game.getSnake());
-
-//        mvlock = false;
+        game.setSnakeCoordinates(game.getX(), game.getY());
+        game.getPanel().highlight(game.getSnake());
+        game.setKeyPressed(false);
     }
 }

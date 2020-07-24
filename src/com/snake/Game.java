@@ -2,14 +2,9 @@ package com.snake;
 
 import com.snake.gui.Frame;
 import com.snake.gui.Panel;
-import com.snake.gui.Gui;
 import com.snake.gui.events.Key;
 import com.snake.gui.events.Action;
-import com.snake.moves.Left;
-import com.snake.moves.Movable;
 import com.snake.moves.Moves;
-import com.snake.util.FoodCollisionDetector;
-import com.snake.util.Randomizer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +21,7 @@ public class Game {
     private String direction;
     private int x, y;
 
-    private boolean mvlock;
+    private boolean keyPressed;
 
 //    private Pathfinder pathfinder;
 
@@ -52,8 +47,8 @@ public class Game {
         start();
     }
 
-    public void setCoord(int x, int y) {
-        snake.setPos(x, y);
+    public void setSnakeCoordinates(int x, int y) {
+        snake.setNewCoordinates(x, y);
 //        checkCollision();
 //        checkFood(x, y);
 //        if (gui.isAutopilot()) {
@@ -90,7 +85,7 @@ public class Game {
     public void resetGame() {
         x = getAreaSize() / 2;
         y = getAreaSize() / 2;
-        snake = new Snake(getAreaSize());
+        snake = new Snake();
 //        gui.resetGUI();
     }
 
@@ -101,33 +96,25 @@ public class Game {
 
     public void start() {
         setDirection(Moves.LEFT.getKey());
-//        while (true) {
-//            Moves.LEFT.getMove().move(this);
-//        }
-        Moves.LEFT.getMove().move(this);
-        Moves.LEFT.getMove().move(this);
-        Moves.LEFT.getMove().move(this);
-        Moves.LEFT.getMove().move(this);
-        Moves.LEFT.getMove().move(this);
 
-//        while (!"".equals(movedir)) {
-//            switch (movedir) {
-//                case "UP":
-//                    moveUp();
-//                    break;
-//                case "DOWN":
-//                    moveDown();
-//                    break;
-//                case "LEFT":
-//                    moveLeft();
-//                    break;
-//                case "RIGHT":
-//                    moveRight();
-//                    break;
-//                case "":
-//                    break;
-//            }
-//        }
+        while (!getDirection().equals("")) {
+            switch (getDirection()) {
+                case "UP":
+                    Moves.UP.getMove().move(this);
+                    break;
+                case "DOWN":
+                    Moves.DOWN.getMove().move(this);
+                    break;
+                case "LEFT":
+                    Moves.LEFT.getMove().move(this);
+                    break;
+                case "RIGHT":
+                    Moves.RIGHT.getMove().move(this);
+                    break;
+                case "":
+                    break;
+            }
+        }
     }
 
 //    public int getX(int i) {
@@ -174,12 +161,12 @@ public class Game {
         this.y = y;
     }
 
-    public boolean isMvlock() {
-        return mvlock;
+    public boolean isKeyPressed() {
+        return keyPressed;
     }
 
-    public void setMvlock(boolean mvlock) {
-        this.mvlock = mvlock;
+    public void setKeyPressed(boolean keyPressed) {
+        this.keyPressed = keyPressed;
     }
 
     public int getAreaSize() {

@@ -24,7 +24,7 @@ public class Panel {
         return jPanel;
     }
 
-    public void moveSnake(Snake snake) {
+    public void highlight(Snake snake) {
         jLabel[snake.getHeadY()][snake.getHeadX()].
                 setForeground(Colors.SNAKE_COLOR.getColor());
 
