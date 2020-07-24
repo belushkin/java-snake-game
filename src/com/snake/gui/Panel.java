@@ -54,7 +54,7 @@ public class Panel {
     }
 
     public void displayFood(Food food) {
-        jLabel[food.getX()][food.getY()].
+        jLabel[food.getY()][food.getX()].
                 setForeground(Colors.FOOD_COLOR.getColor());
     }
 

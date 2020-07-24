@@ -23,7 +23,15 @@ public class Snake {
         y.set(y.size()-1, newY);
     }
 
-    public void growLength(int i) {
+    public void growLength() {
+
+        x.add(x.get(x.size()-1));
+        x.add(x.get(x.size()-1));
+
+        y.add(y.get(y.size()-1));
+        y.add(y.get(y.size()-1));
+
+
 //        length += 2;
 //        while (i < length) {
 //            x[i + 1] = x[i];

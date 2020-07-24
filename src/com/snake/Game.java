@@ -38,7 +38,7 @@ public class Game {
         Key.addKeyEvents(panel);
         Action.addActionEvents(panel, this);
 
-        Frame frame = new Frame(new JFrame(), panel.getjPanel(), getAreaSize());
+        new Frame(new JFrame(), panel.getjPanel(), getAreaSize());
 
         //        pathfinder = new Pathfinder(this, gui);
 
@@ -50,7 +50,7 @@ public class Game {
     public void setSnakeCoordinates(int x, int y) {
         snake.setNewCoordinates(x, y);
 //        checkCollision();
-//        checkFood(x, y);
+        checkFood(x, y);
 //        if (gui.isAutopilot()) {
 //            if (!pathfinder.isPathFound()) {
 //                pathfinder.initPathfind(getFoodX(), getFoodY());
@@ -76,7 +76,7 @@ public class Game {
 
     private void checkFood(int x, int y) {
         if (food.getX() == x && food.getY() == y) {
-            snake.growLength(snake.getLength());
+            snake.growLength();
 //            gui.blink();
             spawnFood();
         }
