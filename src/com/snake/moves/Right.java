@@ -3,6 +3,7 @@ package com.snake.moves;
 import com.snake.Game;
 
 public class Right implements Movable{
+    @Override
     public void move(Game game) {
 //        //movedir="RIGHT";
 //        if (this.x != areaSize - 2) {

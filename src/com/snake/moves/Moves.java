@@ -1,19 +1,25 @@
 package com.snake.moves;
 
 public enum Moves {
-    UP("UP"),
-    DOWN("DOWN"),
-    LEFT("LEFT"),
-    RIGHT("RIGHT"),
-    AUTO("AUTO");
+    UP("UP", new Up()),
+    DOWN("DOWN", new Down()),
+    LEFT("LEFT", new Left()),
+    RIGHT("RIGHT", new Right()),
+    AUTO("AUTO", new Auto());
 
-    private final String move;
+    private final String key;
+    private final Movable move;
 
-    Moves(String move) {
+    Moves(String key, Movable move) {
+        this.key = key;
         this.move = move;
     }
 
-    public String getMove() {
+    public String getKey() {
+        return key;
+    }
+
+    public Movable getMove() {
         return move;
     }
 }

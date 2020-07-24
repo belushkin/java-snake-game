@@ -1,10 +1,35 @@
 package com.snake;
 
 public class Snake {
-    private int[] x, y;
-    private int length;
+    private final int[] x;
+    private final int[] y;
+    private int length = 6;
 
-    public Snake() {
+    public Snake(int size) {
+        x = new int[size*size];
+        y = new int[size*size];
+    }
+
+    public void setPos(int newX, int newY) {
+        x[length] = newX;
+        y[length] = newY;
+
+        for (int i = 0; i < length; i++) {
+            x[i] = x[i + 1];
+            y[i] = y[i + 1];
+        }
+//        for (int i = 0; i <= length; i++) {
+//            System.out.println(x[i]);
+//        }
+    }
+
+    public void growLength(int i) {
+        length += 2;
+        while (i < length) {
+            x[i + 1] = x[i];
+            y[i + 1] = y[i];
+            i++;
+        }
     }
 
     public int getLength() {
@@ -19,29 +44,19 @@ public class Snake {
         return y[i];
     }
 
-    public void setPos(int a, int b) {
-        x[length] = a;
-        y[length] = b;
-        for (int i = 0; i < length; i++) {
-            x[i] = x[i + 1];
-            y[i] = y[i + 1];
-        }
+    public int getHeadX() {
+        return x[length];
     }
 
-    public void growLength(int i) {
-        this.length += 2;
-        while (i < this.length) {
-            x[i + 1] = x[i];
-            y[i + 1] = y[i];
-            i++;
-        }
+    public int getHeadY() {
+        return y[length];
     }
 
-    public void initializeGame(int size) {
-        length = 6;
-
-        x = new int[size*size];
-        y = new int[size*size];
+    public int getTailX() {
+        return x[0];
     }
 
+    public int getTailY() {
+        return y[0];
+    }
 }

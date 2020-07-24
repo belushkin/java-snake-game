@@ -5,6 +5,8 @@ import com.snake.gui.Panel;
 import com.snake.gui.Gui;
 import com.snake.gui.events.Key;
 import com.snake.gui.events.Action;
+import com.snake.moves.Left;
+import com.snake.moves.Movable;
 import com.snake.moves.Moves;
 import com.snake.util.FoodCollisionDetector;
 import com.snake.util.Randomizer;
@@ -14,13 +16,16 @@ import java.awt.*;
 
 public class Game {
 
+    public static final int TIMER = 200;
+
     private Snake snake;
-//    private Gui gui;
-    private Panel panel;
     private Food food;
+    private Panel panel;
+
     private final int areaSize;
     private String direction;
     private int x, y;
+
     private boolean mvlock;
 
 //    private Pathfinder pathfinder;
@@ -30,26 +35,27 @@ public class Game {
     }
 
     public void run() {
-        snake = new Snake();
         panel = new Panel(
-                new JPanel(new GridLayout(areaSize, areaSize)),
-                new JLabel[areaSize][areaSize],
-                areaSize
+                new JPanel(new GridLayout(getAreaSize(), getAreaSize())),
+                new JLabel[getAreaSize()][getAreaSize()],
+                this
         );
         Key.addKeyEvents(panel);
         Action.addActionEvents(panel, this);
 
-        Frame frame = new Frame(new JFrame(), panel.getjPanel(), areaSize);
+        Frame frame = new Frame(new JFrame(), panel.getjPanel(), getAreaSize());
 
         //        pathfinder = new Pathfinder(this, gui);
 
-        resetAll();
+        resetGame();
+        spawnFood();
+        start();
     }
 
-    public void setCoord(int x, int y) { //asetetaan uusi koordinaatti guihin ja pelin sisäiseen logiikkaan
+    public void setCoord(int x, int y) {
         snake.setPos(x, y);
-        checkCollision();
-        checkFood(x, y);
+//        checkCollision();
+//        checkFood(x, y);
 //        if (gui.isAutopilot()) {
 //            if (!pathfinder.isPathFound()) {
 //                pathfinder.initPathfind(getFoodX(), getFoodY());
@@ -67,7 +73,7 @@ public class Game {
         for (int i = 0; i < (snake.getLength() - 3); i++) {
             if (snakeHeadX == snake.getX(i) && snakeHeadY == snake.getY(i)) {
 //                gui.endAnimation();
-                resetAll();
+                resetGame();
                 break;
             }
         }
@@ -81,25 +87,24 @@ public class Game {
         }
     }
 
-    public void resetAll() {
-        x = areaSize / 2;
-        y = areaSize / 2;
-        snake.initializeGame(areaSize);
+    public void resetGame() {
+        x = getAreaSize() / 2;
+        y = getAreaSize() / 2;
+        snake = new Snake(getAreaSize());
 //        gui.resetGUI();
-        start();
     }
 
     public void spawnFood() {
         food = Food.spawn(this);
-        getPanel().displayFood(food.getX(), food.getY());
-//        snake.setFood(food.getX(), food.getY());
+        getPanel().displayFood(food);
     }
 
     public void start() {
-        setDirection(Moves.LEFT.getMove());
-        spawnFood();
+        setDirection(Moves.LEFT.getKey());
+        while (true) {
+            Moves.LEFT.getMove().move(this);
+        }
 
-//        moveLeft();
 
 //        while (!"".equals(movedir)) {
 //            switch (movedir) {

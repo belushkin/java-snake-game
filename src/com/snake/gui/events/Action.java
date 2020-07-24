@@ -11,13 +11,13 @@ public class Action {
 
     public static void addActionEvents(Panel panel, Game game) {
 
-        panel.getjPanel().getActionMap().put(Moves.UP.getMove(), new AbstractAction() {
+        panel.getjPanel().getActionMap().put(Moves.UP.getKey(), new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-//                System.out.println(game.getDirection());
+//                System.out.println(game.getKey());
 //                System.out.println(Moves.UP);
-//                game.setDirection(Moves.UP.getMove());
+//                game.setDirection(Moves.UP.getKey());
 //                if (!movedir.equals("DOWN")) {
 //                    if (!mvlock) {
 //                        movedir = "UP";
@@ -26,11 +26,11 @@ public class Action {
 //                }
             }
         });
-        panel.getjPanel().getActionMap().put(Moves.LEFT.getMove(), new AbstractAction() {
+        panel.getjPanel().getActionMap().put(Moves.LEFT.getKey(), new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-//                System.out.println(game.getDirection());
+//                System.out.println(game.getKey());
 //                game.setDirection("LEFT");
 //                if (!movedir.equals("RIGHT")) {
 //                    if (!mvlock) {
@@ -40,11 +40,11 @@ public class Action {
 //                }
             }
         });
-        panel.getjPanel().getActionMap().put(Moves.DOWN.getMove(), new AbstractAction() {
+        panel.getjPanel().getActionMap().put(Moves.DOWN.getKey(), new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-//                System.out.println(game.getDirection());
+//                System.out.println(game.getKey());
 //                game.setDirection("DOWN");
 //                if (!movedir.equals("UP")) {
 //                    if (!mvlock) {
@@ -54,11 +54,11 @@ public class Action {
 //                }
             }
         });
-        panel.getjPanel().getActionMap().put(Moves.RIGHT.getMove(), new AbstractAction() {
+        panel.getjPanel().getActionMap().put(Moves.RIGHT.getKey(), new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-//                System.out.println(game.getDirection());
+//                System.out.println(game.getKey());
 //                game.setDirection("RIGHT");
 //                if (!movedir.equals("LEFT")) {
 //                    if (!mvlock) {
@@ -69,7 +69,7 @@ public class Action {
             }
         });
 
-        panel.getjPanel().getActionMap().put(Moves.AUTO.getMove(), new AbstractAction() {
+        panel.getjPanel().getActionMap().put(Moves.AUTO.getKey(), new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {

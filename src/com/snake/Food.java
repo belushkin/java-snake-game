@@ -4,7 +4,8 @@ import com.snake.util.FoodCollisionDetector;
 import com.snake.util.Randomizer;
 
 public class Food {
-    private int x, y;
+    private final int x;
+    private final int y;
 
     private Food(int x, int y) {
         this.x = x;
