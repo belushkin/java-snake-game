@@ -1,42 +1,43 @@
 package com.snake.gui.events;
 
+import com.snake.gui.Panel;
+import com.snake.moves.Moves;
+
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 public class Key {
-    public static JPanel addKeyEvents(JPanel gamepanel) {
-        gamepanel.
+    public static void addKeyEvents(Panel panel) {
+        panel.getjPanel().
                 getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
                 put(
                         KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0),
-                        "UP"
+                        Moves.UP.getMove()
                 );
-        gamepanel.
+        panel.getjPanel().
                 getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
                 put(
                         KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0),
-                        "LEFT"
+                        Moves.LEFT.getMove()
                 );
-        gamepanel.
+        panel.getjPanel().
                 getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
                 put(
                         KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0),
-                        "DOWN"
+                        Moves.DOWN.getMove()
                 );
-        gamepanel.
+        panel.getjPanel().
                 getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
                 put(
                         KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0),
-                        "RIGHT"
+                        Moves.RIGHT.getMove()
                 );
-        gamepanel.
+        panel.getjPanel().
                 getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
                 put(
                         KeyStroke.getKeyStroke(KeyEvent.VK_A, 0),
-                        "AUTO"
+                        Moves.AUTO.getMove()
                 );
-
-        return gamepanel;
     }
 
 }

@@ -14,8 +14,8 @@ public class Frame {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(jPanel);
-        frame.setSize(getFrameSize(), getFrameSize());
         frame.setResizable(false);
+        frame.setSize(getFrameSize(), getFrameSize());
     }
 
     public JFrame getFrame() {

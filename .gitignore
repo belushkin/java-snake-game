@@ -25,3 +25,5 @@ hs_err_pid*
 .idea
 Java-Snake-Game.iml
 score.txt
+target/*
+!target/.gitignore

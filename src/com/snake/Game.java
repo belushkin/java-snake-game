@@ -3,7 +3,9 @@ package com.snake;
 import com.snake.gui.Frame;
 import com.snake.gui.Panel;
 import com.snake.gui.Gui;
-import com.snake.gui.Screen;
+import com.snake.gui.events.Key;
+import com.snake.gui.events.Action;
+import com.snake.util.Randomizer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +14,10 @@ public class Game {
 
     private Snake snake;
     private Gui gui;
+    private Panel panel;
     private final int areaSize;
+    private String direction;
+
 //    private Pathfinder pathfinder;
 
     public Game(int areaSize) {
@@ -21,22 +26,26 @@ public class Game {
 
     public void run() {
         snake = new Snake();
-        Panel panel = new Panel(
+        panel = new Panel(
                 new JPanel(new GridLayout(areaSize, areaSize)),
                 new JLabel[areaSize][areaSize],
                 areaSize
         );
+        Key.addKeyEvents(panel);
+        Action.addActionEvents(panel, this);
+
         Frame frame = new Frame(new JFrame(), panel.getjPanel(), areaSize);
 
-        gui = new Gui(
-                panel.getjPanel(),
-                frame.getFrame(),
-                this
-        );
+//        gui = new Gui(
+//                panel.getjPanel(),
+//                frame.getFrame(),
+//                this
+//        );
 
         //        pathfinder = new Pathfinder(this, gui);
 
-        gui.init(areaSize);
+        resetAll();
+//        gui.init(areaSize);
     }
 
     public void setCoord(int x, int y) { //asetetaan uusi koordinaatti guihin ja pelin sisäiseen logiikkaan
@@ -56,7 +65,7 @@ public class Game {
     private void checkCollision() {
         for (int i = 0; i < (snake.getLength() - 3); i++) {
             if (getHeadX() == snake.getX(i) && getHeadY() == snake.getY(i)) {
-                gui.endAnimation();
+//                gui.endAnimation();
                 resetAll();
                 break;
             }
@@ -66,36 +75,61 @@ public class Game {
     private void checkFood(int x, int y) {
         if (snake.getFoodX() == x && snake.getFoodY() == y) {
             snake.growLength(snake.getLength());
-            gui.blink();
-            gui.setScore();
+//            gui.blink();
             spawnFood();
         }
     }
 
     public void resetAll() {
-        snake.initializeGame(gui.getGridSize() * gui.getGridSize());
-        gui.resetGUI();
-        gui.start();
+        snake.initializeGame(areaSize);
+//        gui.resetGUI();
+        start();
     }
 
     public void spawnFood() {
-        int x = getRand();
-        int y = getRand();
+        int x = Randomizer.getRand(areaSize);
+        int y = Randomizer.getRand(areaSize);
+
         if (checkFoodCollision(x, y) == 0) {
             snake.setFood(x, y);
-            gui.setFoodPos(x, y);
+            panel.setFoodPos(x, y);
         } else {
             spawnFood();
         }
     }
 
     private int checkFoodCollision(int x, int y) {
-        for (int i = 1; i < (snake.getLength()); i++) {
+        for (int i = 1; i < snake.getLength(); i++) {
             if (x == snake.getX(i) && y == snake.getY(i)) {
                 return 1;
             }
         }
         return 0;
+    }
+
+    public void start() {
+//        this.x = areaSize / 2;
+//        this.y = areaSize / 2;
+        setDirection("LEFT");
+        spawnFood();
+//        while (!"".equals(movedir)) {
+//            switch (movedir) {
+//                case "UP":
+//                    moveUp();
+//                    break;
+//                case "DOWN":
+//                    moveDown();
+//                    break;
+//                case "LEFT":
+//                    moveLeft();
+//                    break;
+//                case "RIGHT":
+//                    moveRight();
+//                    break;
+//                case "":
+//                    break;
+//            }
+//        }
     }
 
     public int getHeadX() {
@@ -126,8 +160,11 @@ public class Game {
         return snake.getLength();
     }
 
-    public int getRand() {
-        return (0 + (int) (Math.random() * (((gui.getGridSize() - 2) - 0) + 0)));
+    public String getDirection() {
+        return direction;
     }
 
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
 }

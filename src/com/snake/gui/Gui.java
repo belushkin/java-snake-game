@@ -2,7 +2,6 @@ package com.snake.gui;
 
 import com.snake.Game;
 
-import java.awt.*;
 import javax.swing.*;
 
 
@@ -30,33 +29,10 @@ public class Gui {
         this.areaSize = areaSize;
 //        this.game = game;
 
-        this.game.resetAll();
+//        this.game.resetAll();
     }
 
-    public void start() {        //normaali ohjausfunktio, käytännössä lopetusehtoa ei ole. Peli nollautuu kun mato osuu itseensä
-        this.x = areaSize / 2;
-        this.y = areaSize / 2;
-        movedir = "LEFT";
-        game.spawnFood();
-        while (!"".equals(movedir)) {
-            switch (movedir) {
-                case "UP":
-                    moveUp();
-                    break;
-                case "DOWN":
-                    moveDown();
-                    break;
-                case "LEFT":
-                    moveLeft();
-                    break;
-                case "RIGHT":
-                    moveRight();
-                    break;
-                case "":
-                    break;
-            }
-        }
-    }
+
 
     public void stop() {
         movedir = "";

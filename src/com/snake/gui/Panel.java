@@ -23,29 +23,29 @@ public class Panel {
     }
 
     public void updatePosition() {
-        jLabel[game.getX(0)][game.getY(0)].setForeground(Colors.BG_COLOR.getColor());
-        jLabel[game.getHeadX()][game.getHeadY()].setForeground(Colors.SNAKE_COLOR.getColor());
+//        jLabel[game.getX(0)][game.getY(0)].setForeground(Colors.BG_COLOR.getColor());
+//        jLabel[game.getHeadX()][game.getHeadY()].setForeground(Colors.SNAKE_COLOR.getColor());
     }
 
     public void blink() {
-        jLabel[game.getHeadX()][game.getHeadY()].setForeground(Colors.FOOD_COLOR.getColor());
-        Timer.waitInterval(TIMER);
-        jLabel[game.getHeadX()][game.getHeadY()].setForeground(Colors.SNAKE_COLOR.getColor());
+//        jLabel[game.getHeadX()][game.getHeadY()].setForeground(Colors.FOOD_COLOR.getColor());
+//        Timer.waitInterval(TIMER);
+//        jLabel[game.getHeadX()][game.getHeadY()].setForeground(Colors.SNAKE_COLOR.getColor());
     }
 
     public void endAnimation() {
-        for (int a = 0; a < game.getLength() - 1; a++) {
-            jLabel[game.getX(a)][game.getY(a)].setForeground(Colors.BG_COLOR.getColor());
-        }
-        Timer.waitInterval(80);
-        for (int a = 0; a < game.getLength() - 1; a++) {
-            jLabel[game.getX(a)][game.getY(a)].setForeground(Colors.SNAKE_COLOR.getColor());
-        }
-        Timer.waitInterval(40);
-        for (int a = 0; a < game.getLength() - 1; a++) {
-            jLabel[game.getX(a)][game.getY(a)].setForeground(Colors.GRAY_COLOR.getColor());
-        }
-        Timer.waitInterval(500);
+//        for (int a = 0; a < game.getLength() - 1; a++) {
+//            jLabel[game.getX(a)][game.getY(a)].setForeground(Colors.BG_COLOR.getColor());
+//        }
+//        Timer.waitInterval(80);
+//        for (int a = 0; a < game.getLength() - 1; a++) {
+//            jLabel[game.getX(a)][game.getY(a)].setForeground(Colors.SNAKE_COLOR.getColor());
+//        }
+//        Timer.waitInterval(40);
+//        for (int a = 0; a < game.getLength() - 1; a++) {
+//            jLabel[game.getX(a)][game.getY(a)].setForeground(Colors.GRAY_COLOR.getColor());
+//        }
+//        Timer.waitInterval(500);
     }
 
     public void setFoodPos(int x, int y) {

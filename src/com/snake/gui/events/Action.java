@@ -1,69 +1,81 @@
 package com.snake.gui.events;
 
+import com.snake.Game;
+import com.snake.gui.Panel;
+import com.snake.moves.Moves;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class Action {
 
-    public static JPanel addActionEvents(JPanel gamepanel) {
+    public static void addActionEvents(Panel panel, Game game) {
 
-        gamepanel.getActionMap().put("UP", new AbstractAction() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if (!movedir.equals("DOWN")) {
-                    if (!mvlock) {
-                        movedir = "UP";
-                        mvlock = true;
-                    }
-                }
-            }
-        });
-        gamepanel.getActionMap().put("LEFT", new AbstractAction() {
+        panel.getjPanel().getActionMap().put(Moves.UP.getMove(), new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (!movedir.equals("RIGHT")) {
-                    if (!mvlock) {
-                        movedir = "LEFT";
-                        mvlock = true;
-                    }
-                }
+//                System.out.println(game.getDirection());
+//                System.out.println(Moves.UP);
+//                game.setDirection(Moves.UP.getMove());
+//                if (!movedir.equals("DOWN")) {
+//                    if (!mvlock) {
+//                        movedir = "UP";
+//                        mvlock = true;
+//                    }
+//                }
             }
         });
-        gamepanel.getActionMap().put("DOWN", new AbstractAction() {
+        panel.getjPanel().getActionMap().put(Moves.LEFT.getMove(), new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (!movedir.equals("UP")) {
-                    if (!mvlock) {
-                        movedir = "DOWN";
-                        mvlock = true;
-                    }
-                }
+//                System.out.println(game.getDirection());
+//                game.setDirection("LEFT");
+//                if (!movedir.equals("RIGHT")) {
+//                    if (!mvlock) {
+//                        movedir = "LEFT";
+//                        mvlock = true;
+//                    }
+//                }
             }
         });
-        gamepanel.getActionMap().put("RIGHT", new AbstractAction() {
+        panel.getjPanel().getActionMap().put(Moves.DOWN.getMove(), new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (!movedir.equals("LEFT")) {
-                    if (!mvlock) {
-                        movedir = "RIGHT";
-                        mvlock = true;
-                    }
-                }
+//                System.out.println(game.getDirection());
+//                game.setDirection("DOWN");
+//                if (!movedir.equals("UP")) {
+//                    if (!mvlock) {
+//                        movedir = "DOWN";
+//                        mvlock = true;
+//                    }
+//                }
             }
         });
-
-        gamepanel.getActionMap().put("AUTO", new AbstractAction() {
+        panel.getjPanel().getActionMap().put(Moves.RIGHT.getMove(), new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                pilotToggle();
+//                System.out.println(game.getDirection());
+//                game.setDirection("RIGHT");
+//                if (!movedir.equals("LEFT")) {
+//                    if (!mvlock) {
+//                        movedir = "RIGHT";
+//                        mvlock = true;
+//                    }
+//                }
             }
         });
 
-        return gamepanel;
+        panel.getjPanel().getActionMap().put(Moves.AUTO.getMove(), new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+//                pilotToggle();
+            }
+        });
+
     }
 }
