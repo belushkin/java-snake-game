@@ -101,10 +101,14 @@ public class Game {
 
     public void start() {
         setDirection(Moves.LEFT.getKey());
-        while (true) {
-            Moves.LEFT.getMove().move(this);
-        }
-
+//        while (true) {
+//            Moves.LEFT.getMove().move(this);
+//        }
+        Moves.LEFT.getMove().move(this);
+        Moves.LEFT.getMove().move(this);
+        Moves.LEFT.getMove().move(this);
+        Moves.LEFT.getMove().move(this);
+        Moves.LEFT.getMove().move(this);
 
 //        while (!"".equals(movedir)) {
 //            switch (movedir) {
