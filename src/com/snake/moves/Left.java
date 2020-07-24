@@ -1,8 +1,9 @@
 package com.snake.moves;
 
-public class Left implements Movable{
-    public void move() {
-//        //movedir="LEFT";
+import com.snake.Game;
+
+public class Left implements Movable {
+    public void move(Game game) {
 //        if (this.x != 0) {
 //            this.x--;
 //        } else {

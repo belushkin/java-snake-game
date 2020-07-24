@@ -48,7 +48,7 @@ public class Panel {
 //        Timer.waitInterval(500);
     }
 
-    public void setFoodPos(int x, int y) {
+    public void displayFood(int x, int y) {
         jLabel[x][y].setForeground(Colors.FOOD_COLOR.getColor());
     }
 

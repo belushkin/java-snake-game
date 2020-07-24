@@ -3,7 +3,6 @@ package com.snake;
 public class Snake {
     private int[] x, y;
     private int length;
-    private int foodX = -1, foodY = -1;
 
     public Snake() {
     }
@@ -29,11 +28,6 @@ public class Snake {
         }
     }
 
-    public void setFood(int x, int y) {
-        foodX = x;
-        foodY = y;
-    }
-
     public void growLength(int i) {
         this.length += 2;
         while (i < this.length) {
@@ -43,22 +37,11 @@ public class Snake {
         }
     }
 
-    public int getFoodX() {
-        return foodX;
-    }
-
-    public int getFoodY() {
-        return foodY;
-    }
-
     public void initializeGame(int size) {
         length = 6;
 
         x = new int[size*size];
         y = new int[size*size];
-
-        foodX = -1;
-        foodY = -1;
     }
 
 }

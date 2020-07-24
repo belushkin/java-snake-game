@@ -1,7 +1,9 @@
 package com.snake.moves;
 
+import com.snake.Game;
+
 public class Down implements Movable{
-    public void move() {
+    public void move(Game game) {
 //        //movedir="DOWN";
 //        if (this.y != areaSize - 2) {
 //            this.y++;
