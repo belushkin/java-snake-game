@@ -12,7 +12,7 @@ import java.awt.*;
 
 public class Game {
 
-    public static final int TIMER = 10;
+    public static final int TIMER = 30;
 
     private Snake snake;
     private Food food;
