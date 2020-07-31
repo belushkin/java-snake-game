@@ -1,5 +1,6 @@
 package com.snake;
 
+import com.snake.ai.Node;
 import com.snake.gui.Frame;
 import com.snake.gui.Panel;
 import com.snake.gui.events.Key;
@@ -41,7 +42,7 @@ public class Game {
 
         new Frame(new JFrame(), panel.getjPanel(), getAreaSize());
 
-        ai = new Ai(getAreaSize());
+        ai = new Ai(this);
 
         resetGame();
         spawnFood();
@@ -56,14 +57,13 @@ public class Game {
         if (isAuto()) {
             if (!ai.isPathFound()) {
                 ai.setSnakeWeights(snake);
-                ai.searchPath();
+                ai.searchPath(
+                        new Node(snake.getHeadX(), snake.getHeadY()), // start
+                        new Node(food.getX(), food.getY()) // goal
+                );
+                ai.setPathFound(true);
             }
-//            if (!pathfinder.isPathFound()) {
-//                pathfinder.initPathfind(getFoodX(), getFoodY());
-//            }
-//            if (pathfinder.isPathFound()) {
-//                pathfinder.traversePath();
-//            }
+            ai.traversePath();
         }
     }
 
