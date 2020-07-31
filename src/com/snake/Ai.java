@@ -37,15 +37,22 @@ public class Ai {
         }
     }
 
+    public void setSnakeWalls(Snake snake) {
+        squareGrid = new SquareGrid(game.getAreaSize(), game.getAreaSize());
+
+        for (int i = 0; i < snake.getLength(); i++) {
+            squareGrid.addWall(
+                    new Node(snake.getX(i), snake.getY(i))
+            );
+        }
+    }
+
     public void searchPath(Node start, Node goal) {
         path = reconstructPath(
                 astar.search(squareGrid, start, goal),
                 start,
                 goal
         );
-        System.out.println("start: " + start);
-        System.out.println("goal: " + goal);
-        System.out.println(path);
     }
 
     public boolean isPathFound() {
@@ -71,26 +78,29 @@ public class Ai {
     }
 
     public void traversePath() {
+        if (path.get(cursor).getX() < game.getSnake().getHeadX()) {
+            cursor++;
+            checkCursor();
+            game.setDirection(Moves.LEFT.getKey());
+        } else if (path.get(cursor).getX() > game.getSnake().getHeadX()) {
+            cursor++;
+            checkCursor();
+            game.setDirection(Moves.RIGHT.getKey());
+        } else if (path.get(cursor).getY() < game.getSnake().getHeadY()) {
+            cursor++;
+            checkCursor();
+            game.setDirection(Moves.UP.getKey());
+        } else if (path.get(cursor).getY() > game.getSnake().getHeadY()) {
+            cursor++;
+            checkCursor();
+            game.setDirection(Moves.DOWN.getKey());
+        }
+    }
+
+    private void checkCursor() {
         if (cursor >= path.size()) {
             setPathFound(false);
             cursor = 0;
-            return;
-        }
-//        System.out.println("cursor: " + cursor);
-//        System.out.println("snake head X: " + game.getSnake().getHeadX() + " snake head Y: " + game.getSnake().getHeadY());
-//        System.out.println("cursor:" + path.get(cursor));
-        if (path.get(cursor).getX() < game.getSnake().getHeadX()) {
-            cursor++;
-            Moves.LEFT.getMove().move(game);
-        } else if (path.get(cursor).getX() > game.getSnake().getHeadX()) {
-            cursor++;
-            Moves.RIGHT.getMove().move(game);
-        } else if (path.get(cursor).getY() < game.getSnake().getHeadY()) {
-            cursor++;
-            Moves.UP.getMove().move(game);
-        } else if (path.get(cursor).getY() > game.getSnake().getHeadY()) {
-            cursor++;
-            Moves.DOWN.getMove().move(game);
         }
     }
 

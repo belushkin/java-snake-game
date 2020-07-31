@@ -1,15 +1,13 @@
 package com.snake.ai;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SquareGrid {
     private final int width;
     private final int height;
     private final Map<Node, Integer> weights = new HashMap<>();
+    private final Set<Node> walls = new HashSet<>();
 
     public SquareGrid(int width, int height) {
         this.width = width;
@@ -18,6 +16,10 @@ public class SquareGrid {
 
     public void addWeight(Node node, int weight) {
         weights.put(node, weight);
+    }
+
+    public void addWall(Node node) {
+        walls.add(node);
     }
 
     public int getWidth() {
@@ -32,6 +34,10 @@ public class SquareGrid {
         return x >= 0 && x < width && y >= 0 && y < height;
     }
 
+    private boolean passable(Node node) {
+        return !walls.contains(node);
+    }
+
     public List<Node> neighbors(int x, int y) {
         List<Node> results = new ArrayList<>();
 
@@ -43,6 +49,7 @@ public class SquareGrid {
         return results.
                 stream().
                 filter(node -> inBounds(node.getX(), node.getY())).
+                filter(this::passable).
                 collect(Collectors.toList());
     }
 

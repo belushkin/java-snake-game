@@ -26,10 +26,10 @@ public class Snake {
     public void growLength() {
 
         x.add(x.get(x.size()-1));
-//        x.add(x.get(x.size()-1));
+        x.add(x.get(x.size()-1));
 
         y.add(y.get(y.size()-1));
-//        y.add(y.get(y.size()-1));
+        y.add(y.get(y.size()-1));
     }
 
     public int getLength() {

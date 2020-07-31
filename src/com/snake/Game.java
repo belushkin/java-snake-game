@@ -12,7 +12,7 @@ import java.awt.*;
 
 public class Game {
 
-    public static final int TIMER = 200;
+    public static final int TIMER = 10;
 
     private Snake snake;
     private Food food;
@@ -56,14 +56,23 @@ public class Game {
 
         if (isAuto()) {
             if (!ai.isPathFound()) {
-                ai.setSnakeWeights(snake);
-                ai.searchPath(
-                        new Node(snake.getHeadX(), snake.getHeadY()), // start
-                        new Node(food.getX(), food.getY()) // goal
-                );
+                ai.setSnakeWalls(snake);
+                try {
+                    ai.searchPath(
+                            new Node(snake.getHeadX(), snake.getHeadY()), // start
+                            new Node(food.getX(), food.getY()) // goal
+                    );
+                } catch (NullPointerException e) {
+                    getPanel().endAnimation(snake);
+                    resetGame();
+                    spawnFood();
+                    return;
+                }
                 ai.setPathFound(true);
             }
-            ai.traversePath();
+            if (ai.isPathFound()) {
+                ai.traversePath();
+            }
         }
     }
 
