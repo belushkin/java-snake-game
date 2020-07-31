@@ -13,8 +13,8 @@ public class Down implements Movable {
         }
 
         Timer.waitInterval(Game.TIMER);
-        game.setSnakeCoordinates(game.getX(), game.getY());
         game.getPanel().highlight(game.getSnake());
+        game.setSnakeCoordinates(game.getX(), game.getY());
         game.setKeyPressed(false);
     }
 }
