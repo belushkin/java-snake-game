@@ -22,8 +22,9 @@ public class Game {
     private int x, y;
 
     private boolean keyPressed;
+    private boolean auto;
 
-//    private Pathfinder pathfinder;
+    private Ai ai;
 
     public Game(int areaSize) {
         this.areaSize = areaSize;
@@ -40,7 +41,7 @@ public class Game {
 
         new Frame(new JFrame(), panel.getjPanel(), getAreaSize());
 
-        //        pathfinder = new Pathfinder(this, gui);
+        ai = new Ai(getAreaSize());
 
         resetGame();
         spawnFood();
@@ -51,14 +52,19 @@ public class Game {
         snake.setNewCoordinates(x, y);
         checkCollision();
         checkFood(x, y);
-//        if (gui.isAutopilot()) {
+
+        if (isAuto()) {
+            if (!ai.isPathFound()) {
+                ai.setSnakeWeights(snake);
+                ai.searchPath();
+            }
 //            if (!pathfinder.isPathFound()) {
 //                pathfinder.initPathfind(getFoodX(), getFoodY());
 //            }
 //            if (pathfinder.isPathFound()) {
 //                pathfinder.traversePath();
 //            }
-//        }
+        }
     }
 
     private void checkCollision() {
@@ -115,25 +121,13 @@ public class Game {
         }
     }
 
-//    public int getX(int i) {
-//        return snake.getX(i);
-//    }
-//
-//    public int getY(int i) {
-//        return snake.getY(i);
-//    }
-//
-//    public int getFoodX() {
-//        return snake.getFoodX();
-//    }
-//
-//    public int getFoodY() {
-//        return snake.getFoodY();
-//    }
-//
-//    public int getLength() {
-//        return snake.getLength();
-//    }
+    public void toggleAuto() {
+        auto = !isAuto();
+    }
+
+    public boolean isAuto() {
+        return auto;
+    }
 
     public String getDirection() {
         return direction;

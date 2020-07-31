@@ -59,7 +59,7 @@ public class Action {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-//                pilotToggle();
+                game.toggleAuto();
             }
         });
 
